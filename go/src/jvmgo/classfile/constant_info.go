@@ -4,11 +4,11 @@ package classfile
 const (
 	// 类
 	CONSTANT_Class = 7
-	// 字段
+	// 字段引用
 	COMSTANT_Fieldref = 9
-	// 方法
+	// 方法引用
 	CONSTANT_Methodref = 10
-	// 接口方法
+	// 接口方法引用
 	CONSTANT_InterfaceMethodref = 11
 	// 字符串
 	CONSTANT_String = 8
@@ -75,12 +75,13 @@ func newConstantInfo(tag uint8, cp ConstantPool) ConstantInfo {
 		return &ConstantInterfaceMethodrefInfo{ConstantMemberrefInfo{cp: cp}}
 	case CONSTANT_NameAndType:
 		return &ConstantNameAndTypeInfo{}
-	case CONSTANT_MethodType:
-		return &ConstantMethodTypeInfo{}
-	case CONSTANT_MethodHandle:
-		return &ConstantMethodHandleInfo{}
-	case CONSTANT_InvokeDynamic:
-		return &ConstantInvokeDynamicInfo{}
+		// 目的解析invokedynamic指令
+	//case CONSTANT_MethodType:
+	//	return &ConstantMethodTypeInfo{}
+	//case CONSTANT_MethodHandle:
+	//	return &ConstantMethodHandleInfo{}
+	//case CONSTANT_InvokeDynamic:
+	//	return &ConstantInvokeDynamicInfo{}
 	default:
 		panic("java.lang.ClassFormatError: constant pool tag!")
 	}

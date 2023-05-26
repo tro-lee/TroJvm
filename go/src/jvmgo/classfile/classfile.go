@@ -46,8 +46,8 @@ func Parse(classData []byte) (cf *ClassFile, err error) {
 
 // read 读取
 func (self *ClassFile) read(reader *ClassReader) {
-	self.readAndCheckVersion(reader)             // 读取并检查版本号
 	self.readAndCheckMagic(reader)               // 读取并检查魔数
+	self.readAndCheckVersion(reader)             // 读取并检查版本号
 	self.constantPool = readConstantPool(reader) // 读取常量池
 
 	self.accessFlags = reader.readUint16() // 读取访问标志
@@ -68,6 +68,7 @@ func (self *ClassFile) readAndCheckMagic(reader *ClassReader) {
 	magic := reader.readUint32()
 	//class的魔数为0xCAFEBABE
 	if magic != 0xCAFEBABE {
+		println(magic)
 		panic("java.lang.ClassFormatError: magic!")
 	}
 }
@@ -109,6 +110,9 @@ func (self *ClassFile) Fields() []*MemberInfo { return self.fields }
 
 // Methods 方法表
 func (self *ClassFile) Methods() []*MemberInfo { return self.methods }
+
+// Attributes 属性表
+func (self *ClassFile) Attributes() []AttributeInfo { return self.attributes }
 
 // 运用到常量池
 

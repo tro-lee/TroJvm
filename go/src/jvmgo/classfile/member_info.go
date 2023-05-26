@@ -36,7 +36,9 @@ func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 // Getter
 
 // AccessFlags 获取访问标志
-func (self *MemberInfo) AccessFlags() uint16 {}
+func (self *MemberInfo) AccessFlags() uint16 {
+	return self.accessFlags
+}
 
 // Name 获取名称
 func (self *MemberInfo) Name() string {

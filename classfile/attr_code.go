@@ -10,6 +10,18 @@ type CodeAttribute struct {
 	attributes     []AttributeInfo        // 属性表
 }
 
+func (self *CodeAttribute) MaxStack() uint {
+	return uint(self.maxStack)
+}
+
+func (self *CodeAttribute) MaxLocals() uint {
+	return uint(self.maxLocals)
+}
+
+func (self *CodeAttribute) Code() []byte {
+	return self.code
+}
+
 func (self *CodeAttribute) readInfo(reader *ClassReader) {
 	// 读取操作数栈的最大深度
 	self.maxStack = reader.readUint16()

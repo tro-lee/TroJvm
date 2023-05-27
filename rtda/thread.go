@@ -14,6 +14,11 @@ func NewThread() *Thread {
 	}
 }
 
+// NewFrame 生成栈
+func (self *Thread) NewFrame(maxLocals, maxStack uint) *Frame {
+	return NewFrame(self, maxLocals, maxStack)
+}
+
 // Getter
 func (self *Thread) PC() int {
 	return self.pc

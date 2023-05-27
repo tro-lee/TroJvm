@@ -49,3 +49,15 @@ func (self *MemberInfo) Name() string {
 func (self *MemberInfo) Descriptor() string {
 	return self.cp.getUtf8(self.descriptorIndex)
 }
+
+// CodeAttribute 获取Code属性
+func (self *MemberInfo) CodeAttribute() *CodeAttribute {
+	// 寻找到要code属性
+	for _, attrInfo := range self.attributes {
+		switch attrInfo.(type) {
+		case *CodeAttribute:
+			return attrInfo.(*CodeAttribute)
+		}
+	}
+	return nil
+}

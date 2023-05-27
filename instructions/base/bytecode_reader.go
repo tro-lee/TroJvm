@@ -8,6 +8,10 @@ type BytecodeReader struct {
 	pc int
 }
 
+func (self *BytecodeReader) PC() int {
+	return self.pc
+}
+
 // Reset 重置，用来避免每次解码指令都新创建一个实例
 func (self *BytecodeReader) Reset(code []byte, pc int) {
 	self.code = code

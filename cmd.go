@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"flag"
@@ -37,15 +37,15 @@ func (c Cmd) Args() []string {
 }
 
 // PrintUsage 打印命令行参数说明
-func PrintUsage() {
+func printUsage() {
 	fmt.Printf("Usage: %s [-options] class [args...]\n", os.Args[0])
 }
 
 // ParseCmd 解析命令行参数
-func ParseCmd() *Cmd {
+func parseCmd() *Cmd {
 	cmd := &Cmd{}
 
-	flag.Usage = PrintUsage
+	flag.Usage = printUsage
 	//设置命令行解析选项
 	flag.BoolVar(&cmd.helpFlag, "help", false, "print help message")
 	flag.BoolVar(&cmd.versionFlag, "version", false, "print version and exit")

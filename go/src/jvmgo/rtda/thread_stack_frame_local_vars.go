@@ -2,7 +2,7 @@ package rtda
 
 import "math"
 
-// LocalVars 局部变量
+// LocalVars 局部变量表
 type LocalVars []Slot
 
 // NewLocalVars 创建局部变量表

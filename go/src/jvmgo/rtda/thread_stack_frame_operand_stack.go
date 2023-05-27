@@ -18,6 +18,18 @@ func newOperandStack(maxStack uint) *OperandStack {
 	return nil
 }
 
+// PushSlot 推入Slot
+func (self *OperandStack) PushSlot(slot Slot) {
+	self.slots[self.size] = slot
+	self.size++
+}
+
+// PopSlot 推出Slot
+func (self *OperandStack) PopSlot() Slot {
+	self.size--
+	return self.slots[self.size]
+}
+
 // PushInt 推入int
 func (self *OperandStack) PushInt(val int32) {
 	self.slots[self.size].num = val

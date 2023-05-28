@@ -1,5 +1,6 @@
 package heap
 
 type Object struct {
-	// todo
+	class *Class // 对象所属的类
+	field Slots  // 对象的字段
 }

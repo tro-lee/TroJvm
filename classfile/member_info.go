@@ -61,3 +61,15 @@ func (self *MemberInfo) CodeAttribute() *CodeAttribute {
 	}
 	return nil
 }
+
+// ConstantValueAttribute 获取ConstantValue属性
+func (self *MemberInfo) ConstantValueAttribute() *ConstantValueAttribute {
+	// 寻找到要ConstantValue属性
+	for _, attrInfo := range self.attributes {
+		switch attrInfo.(type) {
+		case *ConstantValueAttribute:
+			return attrInfo.(*ConstantValueAttribute)
+		}
+	}
+	return nil
+}

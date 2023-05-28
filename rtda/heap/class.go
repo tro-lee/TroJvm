@@ -19,9 +19,10 @@ type Class struct {
 	interfaces        []*Class      //接口
 	instanceSlotCount uint          //实例变量占据的空间大小
 	staticSlotCount   uint          //静态变量占据的空间大小
-	staticVars        *Slots        //静态变量
+	staticVars        Slots         //静态变量
 }
 
+// newClass()方法把classFile转换成Class结构体
 func newClass(cf *classfile.ClassFile) *Class {
 	class := &Class{}
 	class.accessFlags = cf.AccessFlags()

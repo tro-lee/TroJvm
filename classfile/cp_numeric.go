@@ -9,6 +9,10 @@ type ConstantIntegerInfo struct {
 	val int32
 }
 
+func (self *ConstantIntegerInfo) Value() int32 {
+	return self.val
+}
+
 func (self *ConstantIntegerInfo) readInfo(reader *ClassReader) {
 	// 读取数据
 	bytes := reader.readUint32()
@@ -19,6 +23,10 @@ func (self *ConstantIntegerInfo) readInfo(reader *ClassReader) {
 // ConstantFloatInfo 浮点数
 type ConstantFloatInfo struct {
 	val float32
+}
+
+func (self *ConstantFloatInfo) Value() float32 {
+	return self.val
 }
 
 func (self *ConstantFloatInfo) readInfo(reader *ClassReader) {
@@ -33,6 +41,10 @@ type ConstantLongInfo struct {
 	val int64
 }
 
+func (self *ConstantLongInfo) Value() int64 {
+	return self.val
+}
+
 func (self *ConstantLongInfo) readInfo(reader *ClassReader) {
 	bytes := reader.readUint64()
 	self.val = int64(bytes)
@@ -41,6 +53,10 @@ func (self *ConstantLongInfo) readInfo(reader *ClassReader) {
 // ConstantDoubleInfo 双精度浮点数
 type ConstantDoubleInfo struct {
 	val float64
+}
+
+func (self *ConstantDoubleInfo) Value() float64 {
+	return self.val
 }
 
 func (self *ConstantDoubleInfo) readInfo(reader *ClassReader) {

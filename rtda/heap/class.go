@@ -7,19 +7,19 @@ import (
 
 // Class 定义类结构体
 type Class struct {
-	accessFlags       uint16                  //访问标志
-	name              string                  //类名，完全限定名
-	superClassName    string                  //超类名
-	interfaceNames    []string                //接口名
-	constantPool      *classfile.ConstantPool //运行时常量池指针
-	fields            []*Field                //字段表
-	methods           []*Method               //方法表
-	loader            *ClassLoader            //读取类数据的类加载器
-	superClass        *Class                  //超类
-	interfaces        []*Class                //接口
-	instanceSlotCount uint                    //实例变量占据的空间大小
-	staticSlotCount   uint                    //静态变量占据的空间大小
-	staticVars        *Slots                  //静态变量
+	accessFlags       uint16        //访问标志
+	name              string        //类名，完全限定名
+	superClassName    string        //超类名
+	interfaceNames    []string      //接口名
+	constantPool      *ConstantPool //运行时常量池指针
+	fields            []*Field      //字段表, 类成员
+	methods           []*Method     //方法表，类成员
+	loader            *ClassLoader  //读取类数据的类加载器
+	superClass        *Class        //超类
+	interfaces        []*Class      //接口
+	instanceSlotCount uint          //实例变量占据的空间大小
+	staticSlotCount   uint          //静态变量占据的空间大小
+	staticVars        *Slots        //静态变量
 }
 
 func newClass(cf *classfile.ClassFile) *Class {

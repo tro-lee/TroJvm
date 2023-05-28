@@ -1,6 +1,9 @@
 package rtda
 
-import "math"
+import (
+	"TroJvm/rtda/heap"
+	"math"
+)
 
 // LocalVars 局部变量表
 type LocalVars []Slot
@@ -70,11 +73,11 @@ func (self LocalVars) GetDouble(index uint) float64 {
 }
 
 // SetRef 设置引用类型的局部变量
-func (self LocalVars) SetRef(index uint, ref *Object) {
+func (self LocalVars) SetRef(index uint, ref *heap.Object) {
 	self[index].ref = ref
 }
 
 // GetRef 获取引用类型的局部变量
-func (self LocalVars) GetRef(index uint) *Object {
+func (self LocalVars) GetRef(index uint) *heap.Object {
 	return self[index].ref
 }

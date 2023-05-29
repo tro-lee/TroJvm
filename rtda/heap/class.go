@@ -3,6 +3,7 @@ package heap
 import (
 	"TroJvm/classfile"
 	_ "TroJvm/classfile"
+	"strings"
 )
 
 // Class 定义类结构体
@@ -33,6 +34,21 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.fields = newFields(class, cf.Fields())
 	class.methods = newMethods(class, cf.Methods())
 	return class
+}
+
+// 访问控制
+func (self *Class) isAccessibleTo(other *Class) bool {
+	// 判断类是否可以访问
+	return self.IsPublic() || self.getPackageName() == other.getPackageName()
+}
+
+// 获取包名
+func (self *Class) getPackageName() string {
+	// 例如: github/good/Friend
+	if i := strings.LastIndex(self.name, "/"); i >= 0 {
+		return self.name[:i]
+	}
+	return ""
 }
 
 // 用来判断某个访问标志符被设置，通过与运算判断是否等号

@@ -14,3 +14,24 @@ func (self *MemberRef) copyMemberRefInfo(memberInfo *classfile.ConstantMemberref
 	self.className = memberInfo.ClassName()
 	self.name, self.descriptor = memberInfo.NameAndDescriptor()
 }
+
+// 访问控制规则
+func (self *Field) isAccessibleTo(d *Class) bool {
+	// 如果是public，就是任意访问
+	if self.IsPublic() {
+		return true
+	}
+	c := self.class
+
+	// 如果是protected, 就是同一个类，子类，同一个包
+	if self.IsProtected() {
+		return d == c || d.isSubClassOf(c) || c.getPackageName() == d.getPackageName()
+	}
+
+	// 如果是private, 就是同一个类
+	if self.IsPrivate() {
+		return d == c
+	}
+
+	return c.getPackageName() == d.getPackageName()
+}

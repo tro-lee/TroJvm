@@ -18,6 +18,7 @@ func Interpret(method *heap.Method) {
 	thread.PushFrame(frame)
 	defer catchErr(frame)
 
+	// 可以理解方法的操作码，在线程上执行
 	loop(thread, method.Code())
 }
 
@@ -33,7 +34,9 @@ func catchErr(frame *rtda.Frame) {
 
 // Loop 循环
 func loop(thread *rtda.Thread, bytecode []byte) {
+	// 弹出虚拟栈顶帧
 	frame := thread.PopFrame()
+	// 创建一个字节码读取器，开始读取字节码
 	reader := &base.BytecodeReader{}
 	for {
 		//计算pc
@@ -44,6 +47,7 @@ func loop(thread *rtda.Thread, bytecode []byte) {
 		reader.Reset(bytecode, pc)
 		opcode := reader.ReadUint8()
 		inst := instructions.NewInstruction(opcode)
+		//读取操作数，当然有些可能没有操作数，但也执行
 		inst.FetchOperands(reader)
 		frame.SetNextPC(reader.PC())
 

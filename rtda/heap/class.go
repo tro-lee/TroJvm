@@ -39,8 +39,11 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.name = cf.ClassName()
 	class.superClassName = cf.SuperClassName()
 	class.interfaceNames = cf.InterfaceNames()
+	// 重点把常量池转换成运行时常量池
 	class.constantPool = newConstantPool(class, cf.ConstantPool())
+	// 重点把classfile字段表转换成class字段表
 	class.fields = newFields(class, cf.Fields())
+	// 重点把classfile方法表转换成class方法表
 	class.methods = newMethods(class, cf.Methods())
 	return class
 }

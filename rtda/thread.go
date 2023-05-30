@@ -1,5 +1,7 @@
 package rtda
 
+import "TroJvm/rtda/heap"
+
 // Thread 线程
 // 每个线程都有一个pc寄存器和Java虚拟机栈
 type Thread struct {
@@ -15,8 +17,8 @@ func NewThread() *Thread {
 }
 
 // NewFrame 生成栈
-func (self *Thread) NewFrame(maxLocals, maxStack uint) *Frame {
-	return NewFrame(self, maxLocals, maxStack)
+func (self *Thread) NewFrame(method *heap.Method) *Frame {
+	return NewFrame(self, method)
 }
 
 // Getter

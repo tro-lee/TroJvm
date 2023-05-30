@@ -10,6 +10,20 @@ type ClassMember struct {
 	class       *Class //所属类
 }
 
+// getter
+
+func (self *ClassMember) Name() string {
+	return self.name
+}
+
+func (self *ClassMember) Descriptor() string {
+	return self.descriptor
+}
+
+func (self *ClassMember) Class() *Class {
+	return self.class
+}
+
 // copyMemberInfo()方法从classfile.MemberInfo结构体中复制数据
 func (self *ClassMember) copyMemberInfo(memberInfo *classfile.MemberInfo) {
 	self.accessFlags = memberInfo.AccessFlags()

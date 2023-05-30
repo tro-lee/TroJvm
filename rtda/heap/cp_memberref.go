@@ -9,6 +9,14 @@ type MemberRef struct {
 	descriptor string // 字段描述符，代表在java虚拟机的角度，一个类可以有多个同名字段
 }
 
+func (self *MemberRef) Name() string {
+	return self.name
+}
+
+func (self *MemberRef) Descriptor() string {
+	return self.descriptor
+}
+
 // copyMemberRefInfo()方法从classfile.MemberInfo结构体中复制数据
 func (self *MemberRef) copyMemberRefInfo(memberInfo *classfile.ConstantMemberrefInfo) {
 	self.className = memberInfo.ClassName()
@@ -17,7 +25,7 @@ func (self *MemberRef) copyMemberRefInfo(memberInfo *classfile.ConstantMemberref
 
 // 访问控制规则
 func (self *Field) isAccessibleTo(d *Class) bool {
-	// 如果是public，就是任意访问
+	// 如果是public，就是任意访
 	if self.IsPublic() {
 		return true
 	}

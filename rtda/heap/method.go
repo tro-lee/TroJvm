@@ -10,6 +10,18 @@ type Method struct {
 	code      []byte // 字节码
 }
 
+func (self *Method) Code() []byte {
+	return self.code
+}
+
+func (self *Method) MaxStack() uint {
+	return self.maxStack
+}
+
+func (self *Method) MaxLocals() uint {
+	return self.maxLocals
+}
+
 func newMethods(class *Class, cfMethods []*classfile.MemberInfo) []*Method {
 	methods := make([]*Method, len(cfMethods))
 	// 把数据复制到methods中

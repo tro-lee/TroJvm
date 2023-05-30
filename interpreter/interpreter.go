@@ -1,37 +1,33 @@
 package interpreter
 
 import (
-	"TroJvm/classfile"
 	"TroJvm/instructions"
 	"TroJvm/instructions/base"
 	"TroJvm/rtda"
+	"TroJvm/rtda/heap"
 	"fmt"
 )
 
 // Interpret 解释器
-func Interpret(methodInfo *classfile.MemberInfo) {
-	codeAttr := methodInfo.CodeAttribute()
-	// 局部属性表最大索引
-	maxLocals := codeAttr.MaxLocals()
-	// 操作栈深度
-	maxStack := codeAttr.MaxStack()
-	bytecode := codeAttr.Code()
-
-	//创建一个Thread实例，创建帧并推入虚拟机栈顶，然后执行方法
+func Interpret(method *heap.Method) {
+	// 创建一个线程
 	thread := rtda.NewThread()
-	frame := thread.NewFrame(maxLocals, maxStack)
-	thread.PushFrame(frame)
+	// 根据方法创建一个帧
+	frame := thread.NewFrame(method)
 
+	thread.PushFrame(frame)
 	defer catchErr(frame)
-	loop(thread, bytecode)
+
+	loop(thread, method.Code())
 }
 
 // CatchErr 报错
 func catchErr(frame *rtda.Frame) {
 	if r := recover(); r != nil {
-		fmt.Printf("LocalVars:%v\n", frame.LocalVars())
-		fmt.Printf("OperandStack:%v\n", frame.OperandStack())
-		panic(r)
+		//fmt.Println(frame.Thread().PC())
+		//fmt.Printf("LocalVars:%v\n", frame.LocalVars())
+		//fmt.Printf("OperandStack:%v\n", frame.OperandStack())
+		//panic(r)
 	}
 }
 

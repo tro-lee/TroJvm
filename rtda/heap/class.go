@@ -23,6 +23,15 @@ type Class struct {
 	staticVars        Slots         //静态变量
 }
 
+// getters
+func (self *Class) ConstantPool() *ConstantPool {
+	return self.constantPool
+}
+
+func (self *Class) StaticVars() Slots {
+	return self.staticVars
+}
+
 // newClass()方法把classFile转换成Class结构体
 func newClass(cf *classfile.ClassFile) *Class {
 	class := &Class{}
@@ -34,6 +43,27 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.fields = newFields(class, cf.Fields())
 	class.methods = newMethods(class, cf.Methods())
 	return class
+}
+
+// NewObject 创建对象
+func (self *Class) NewObject() *Object {
+	return NewObject(self)
+}
+
+// GetMainMethod 调用类的静态方法
+func (self *Class) GetMainMethod() *Method {
+	return self.getStaticMethod("main", "([Ljava/lang/String;)V")
+}
+
+// getStaticMethod 从方法表中查找方法
+func (self *Class) getStaticMethod(name, descriptor string) *Method {
+	for _, method := range self.methods {
+		// 判断方法是否是静态方法
+		if method.IsStatic() && method.name == name && method.descriptor == descriptor {
+			return method
+		}
+	}
+	return nil
 }
 
 // 访问控制

@@ -9,11 +9,13 @@ import (
 	. "TroJvm/instructions/extended"
 	. "TroJvm/instructions/loads"
 	. "TroJvm/instructions/math"
+	. "TroJvm/instructions/references"
 	. "TroJvm/instructions/stack"
 	. "TroJvm/instructions/stores"
 	"fmt"
 )
 
+// NoOperandsInstruction singletons
 var (
 	nop         = &NOP{}
 	aconst_null = &ACONST_NULL{}
@@ -51,26 +53,34 @@ var (
 	aload_1     = &ALOAD_1{}
 	aload_2     = &ALOAD_2{}
 	aload_3     = &ALOAD_3{}
-	istore_0    = &ISTORE_0{}
-	istore_1    = &ISTORE_1{}
-	istore_2    = &ISTORE_2{}
-	istore_3    = &ISTORE_3{}
-	lstore_0    = &LSTORE_0{}
-	lstore_1    = &LSTORE_1{}
-	lstore_2    = &LSTORE_2{}
-	lstore_3    = &LSTORE_3{}
-	fstore_0    = &FSTORE_0{}
-	fstore_1    = &FSTORE_1{}
-	fstore_2    = &FSTORE_2{}
-	fstore_3    = &FSTORE_3{}
-	dstore_0    = &DSTORE_0{}
-	dstore_1    = &DSTORE_1{}
-	dstore_2    = &DSTORE_2{}
-	dstore_3    = &DSTORE_3{}
-	astore_0    = &ASTORE_0{}
-	astore_1    = &ASTORE_1{}
-	astore_2    = &ASTORE_2{}
-	astore_3    = &ASTORE_3{}
+	// iaload      = &IALOAD{}
+	// laload      = &LALOAD{}
+	// faload      = &FALOAD{}
+	// daload      = &DALOAD{}
+	// aaload      = &AALOAD{}
+	// baload      = &BALOAD{}
+	// caload      = &CALOAD{}
+	// saload      = &SALOAD{}
+	istore_0 = &ISTORE_0{}
+	istore_1 = &ISTORE_1{}
+	istore_2 = &ISTORE_2{}
+	istore_3 = &ISTORE_3{}
+	lstore_0 = &LSTORE_0{}
+	lstore_1 = &LSTORE_1{}
+	lstore_2 = &LSTORE_2{}
+	lstore_3 = &LSTORE_3{}
+	fstore_0 = &FSTORE_0{}
+	fstore_1 = &FSTORE_1{}
+	fstore_2 = &FSTORE_2{}
+	fstore_3 = &FSTORE_3{}
+	dstore_0 = &DSTORE_0{}
+	dstore_1 = &DSTORE_1{}
+	dstore_2 = &DSTORE_2{}
+	dstore_3 = &DSTORE_3{}
+	astore_0 = &ASTORE_0{}
+	astore_1 = &ASTORE_1{}
+	astore_2 = &ASTORE_2{}
+	astore_3 = &ASTORE_3{}
 	// iastore  = &IASTORE{}
 	// lastore  = &LASTORE{}
 	// fastore  = &FASTORE{}
@@ -195,12 +205,12 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &BIPUSH{}
 	case 0x11:
 		return &SIPUSH{}
-	// case 0x12:
-	// 	return &LDC{}
-	// case 0x13:
-	// 	return &LDC_W{}
-	// case 0x14:
-	// 	return &LDC2_W{}
+	case 0x12:
+		return &LDC{}
+	case 0x13:
+		return &LDC_W{}
+	case 0x14:
+		return &LDC2_W{}
 	case 0x15:
 		return &ILOAD{}
 	case 0x16:
@@ -515,26 +525,26 @@ func NewInstruction(opcode byte) base.Instruction {
 	// 	return areturn
 	// case 0xb1:
 	// 	return _return
-	//	case 0xb2:
-	//		return &GET_STATIC{}
-	// case 0xb3:
-	// 	return &PUT_STATIC{}
-	// case 0xb4:
-	// 	return &GET_FIELD{}
-	// case 0xb5:
-	// 	return &PUT_FIELD{}
-	//	case 0xb6:
-	//		return &INVOKE_VIRTUAL{}
-	// case 0xb7:
-	// 	return &INVOKE_SPECIAL{}
+	case 0xb2:
+		return &GET_STATIC{}
+	case 0xb3:
+		return &PUT_STATIC{}
+	case 0xb4:
+		return &GET_FIELD{}
+	case 0xb5:
+		return &PUT_FIELD{}
+	case 0xb6:
+		return &INVOKE_VIRTUAL{}
+	case 0xb7:
+		return &INVOKE_SPECIAL{}
 	// case 0xb8:
 	// 	return &INVOKE_STATIC{}
 	// case 0xb9:
 	// 	return &INVOKE_INTERFACE{}
 	// case 0xba:
 	// 	return &INVOKE_DYNAMIC{}
-	// case 0xbb:
-	// 	return &NEW{}
+	case 0xbb:
+		return &NEW{}
 	// case 0xbc:
 	// 	return &NEW_ARRAY{}
 	// case 0xbd:
@@ -543,10 +553,10 @@ func NewInstruction(opcode byte) base.Instruction {
 	// 	return arraylength
 	// case 0xbf:
 	// 	return athrow
-	// case 0xc0:
-	// 	return &CHECK_CAST{}
-	// case 0xc1:
-	// 	return &INSTANCE_OF{}
+	case 0xc0:
+		return &CHECK_CAST{}
+	case 0xc1:
+		return &INSTANCE_OF{}
 	// case 0xc2:
 	// 	return monitorenter
 	// case 0xc3:
